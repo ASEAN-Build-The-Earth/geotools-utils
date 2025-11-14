@@ -19,3 +19,10 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---
+
+Third-Party Notices:
+This project uses GeoTools (https://geotools.org), licensed under the GNU LGPL v2.1.
+Some source files in this repository are derived from GeoTools modules and are licensed accordingly under the LGPL v2.1.
+See individual file headers for details.

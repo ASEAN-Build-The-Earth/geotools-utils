@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>asia.buildtheearth.asean.geotools</groupId>
+        <artifactId>geotools</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <name>GeoTools CLI</name>
+    <description>Standalone CLI to manage minecraft coordinates with java native's GeoTools project</description>
+    <url>https://github.com/ASEAN-Build-The-Earth/geotools-utils/</url>
+    <inceptionYear>2025</inceptionYear>
+    <artifactId>geotools-utils-cli</artifactId>
+    <packaging>jar</packaging>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.com/ASEAN-Build-The-Earth/geotools-utils/issues</url>
+    </issueManagement>
+    <scm>
+        <url>https://github.com/ASEAN-Build-The-Earth/geotools-utils/tree/main</url>
+        <connection>scm:git@github.com:ASEAN-Build-The-Earth/geotools-utils.git</connection>
+        <developerConnection>scm:git@github.com:ASEAN-Build-The-Earth/geotools-utils.git</developerConnection>
+    </scm>
+    <developers>
+        <developer>
+            <name>Tintinkung</name>
+            <email>tintinkung.lemonade@gmail.com</email>
+            <url>https://github.com/tintinkung</url>
+            <organization>ASEAN Build The Earth</organization>
+            <organizationUrl>https://github.com/ASEAN-Build-The-Earth</organizationUrl>
+        </developer>
+    </developers>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <build.number>${project.parent.version}</build.number>
+    </properties>
+    <build>
+        <!-- IMPORTANT: Plugin Building Path -->
+        <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+        <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
+
+        <!-- IMPORTANT: Output File Name -->
+        <finalName>${project.artifactId}-${project.version}</finalName>
+
+        <resources>
+            <resource>
+                <directory>tools/src/main/resources</directory>
+                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>tools/src/test/resources</directory>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>asia.buildtheearth.asean.geotools.cli.GeoToolsConvertor</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <appendAssemblyId>false</appendAssemblyId>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id> <!-- this is used for inheritance merges -->
+                        <phase>package</phase> <!-- bind to the packaging phase -->
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Test Runner -->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-surefire-plugin</artifactId>-->
+<!--                &lt;!&ndash; Test Report: output configurations &ndash;&gt;-->
+<!--                <configuration>-->
+<!--                    <reportFormat>plain</reportFormat>-->
+<!--                    &lt;!&ndash; Report to console with UNICODE theme &ndash;&gt;-->
+<!--                    <consoleOutputReporter implementation="org.apache.maven.plugin.surefire.extensions.junit5.JUnit5ConsoleOutputReporter">-->
+<!--                        <disable>true</disable>-->
+<!--                        <encoding>UNICODE</encoding>-->
+<!--                        <usePhrasedFileName>false</usePhrasedFileName>-->
+<!--                    </consoleOutputReporter>-->
+<!--                    &lt;!&ndash; Report setting for console outputs &ndash;&gt;-->
+<!--                    <statelessTestsetInfoReporter-->
+<!--                            implementation="org.apache.maven.plugin.surefire.extensions.junit5.JUnit5StatelessTestsetInfoTreeReporter">-->
+<!--                        <hideResultsOnSuccess>true</hideResultsOnSuccess>-->
+<!--                        <usePhrasedFileName>false</usePhrasedFileName>-->
+<!--                        <usePhrasedClassNameInRunning>true</usePhrasedClassNameInRunning>-->
+<!--                        <usePhrasedClassNameInTestCaseSummary>true</usePhrasedClassNameInTestCaseSummary>-->
+<!--                    </statelessTestsetInfoReporter>-->
+<!--                    &lt;!&ndash; Report setting for the resulting *-TEST.xml &ndash;&gt;-->
+<!--                    <statelessTestsetReporter implementation="org.apache.maven.plugin.surefire.extensions.junit5.JUnit5Xml30StatelessReporter">-->
+<!--                        <disable>false</disable>-->
+<!--                        <version>3.0.2</version>-->
+<!--                        <usePhrasedFileName>false</usePhrasedFileName>-->
+<!--                        &lt;!&ndash; Simplify all naming to each annotated @DisplayName &ndash;&gt;-->
+<!--                        <usePhrasedTestSuiteClassName>true</usePhrasedTestSuiteClassName>-->
+<!--                        <usePhrasedTestCaseClassName>true</usePhrasedTestCaseClassName>-->
+<!--                        <usePhrasedTestCaseMethodName>true</usePhrasedTestCaseMethodName>-->
+<!--                    </statelessTestsetReporter>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+            <!-- Integration Test -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <configuration>
+                    <includes>
+                        <include>**/*IT.java</include>
+                    </includes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+    <repositories>
+        <repository>
+            <id>sonatype</id>
+            <url>https://oss.sonatype.org/content/groups/public/</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>info.picocli</groupId>
+            <artifactId>picocli</artifactId>
+            <version>4.7.7</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- This Plugin's API -->
+        <dependency>
+            <groupId>asia.buildtheearth.asean.geotools</groupId>
+            <artifactId>geotools-utils</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>26.0.2</version>
+            <scope>provided</scope>
+            <optional>false</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>5.13.1</version>
+            <scope>test</scope>
+            <optional>false</optional>
+        </dependency>
+        <dependency>
+            <groupId>io.hosuaby</groupId>
+            <artifactId>inject-resources-core</artifactId>
+            <version>1.0.0</version>
+            <scope>test</scope>
+            <optional>false</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.13.1</version>
+            <scope>test</scope>
+            <optional>false</optional>
+        </dependency>
+        <dependency>
+            <groupId>io.hosuaby</groupId>
+            <artifactId>inject-resources-junit-jupiter</artifactId>
+            <version>1.0.0</version>
+            <scope>test</scope>
+            <optional>false</optional>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1.1</version>
+            <scope>test</scope>
+            <optional>false</optional>
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
+</project>
