@@ -4,6 +4,7 @@ import io.hosuaby.inject.resources.junit.jupiter.GivenBinaryResource;
 import io.hosuaby.inject.resources.junit.jupiter.TestWithResources;
 import org.junit.jupiter.api.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
@@ -37,7 +38,7 @@ public final class CLIConverterIT extends AbstractConverterIT {
 
         // Assertions.assertDoesNotThrow(() -> copyDirectoryRecursively(target, cli));
 
-        ProcessBuilder processBuilder = new ProcessBuilder("java", "-jar",
+        ProcessBuilder processBuilder = new ProcessBuilder("java", "-Xlog:class+load=info", "-jar",
                 "cli/converter.jar",
                 "geojson",
                 "kml",
@@ -45,11 +46,37 @@ public final class CLIConverterIT extends AbstractConverterIT {
                 "-o", output.toAbsolutePath().toString())
             .inheritIO().directory(directory.toFile());
 
+        // Redirect output if debugging is needed
+        // processBuilder.redirectErrorStream(true);
+        // processBuilder.redirectOutput(new File("/test-logs-1.txt"));
+
+
         Process process = Assertions.assertDoesNotThrow(processBuilder::start);
 
         int exitCode = process.waitFor();
 
         Assertions.assertEquals(0, exitCode);
+
+        System.out.print(Files.readString(output));
+
+        // Test BlueMap Marker
+        ProcessBuilder processBuilder2 = new ProcessBuilder("java", "-Xlog:class+load=info", "-jar",
+                "cli/converter.jar",
+                "bluemap",
+                "geojson",
+                "-f", output.toAbsolutePath().toString(),
+                "-o", output.toAbsolutePath().toString())
+                .inheritIO().directory(directory.toFile());
+
+        // Redirect output if debugging is needed
+        // processBuilder2.redirectErrorStream(true);
+        // processBuilder2.redirectOutput(new File("/test-logs-2.txt"));
+
+        Process process2 = Assertions.assertDoesNotThrow(processBuilder2::start);
+
+        int exitCode2 = process2.waitFor();
+
+        Assertions.assertEquals(0, exitCode2);
 
         System.out.print(Files.readString(output));
     }
