@@ -44,6 +44,11 @@ public abstract sealed class ToBlueMapMarker extends AbstractGeoToolsConverter {
         return (ToBlueMapMarker) super.disablePrettyPrint();
     }
 
+    @Contract("_ -> new")
+    public static @NotNull ToBlueMapMarker fromGeoJSON(File geojsonFile) {
+        return new ToBlueMapMarker.FromGeoJSON(geojsonFile);
+    }
+
     /**
      * Set a custom projection for this converter.
      *

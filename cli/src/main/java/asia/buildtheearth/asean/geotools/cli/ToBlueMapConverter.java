@@ -1,13 +1,15 @@
 package asia.buildtheearth.asean.geotools.cli;
 
+import asia.buildtheearth.asean.geotools.ToBlueMapMarker;
 import asia.buildtheearth.asean.geotools.ToGeoJSON;
 import picocli.CommandLine;
+
 import java.io.IOException;
 
-@CommandLine.Command(name = "geojson", version = "1.0.0",
-        description = "Converts a geospatial file to GeoJSON format.",
+@CommandLine.Command(name = "bluemap", version = "1.0.0",
+        description = "Converts a geospatial file to BlueMap Marker file.",
         mixinStandardHelpOptions = true, sortOptions = false)
-public class ToGeoJSONConverter extends AbstractConverter {
+public class ToBlueMapConverter extends AbstractConverter {
 
     /**
      * The (optional) elevation modification options.
@@ -24,19 +26,6 @@ public class ToGeoJSONConverter extends AbstractConverter {
             description = "Disables pretty-printing for the output file.")
     private boolean compact;
 
-    /**
-     * Max precision for coordinates data
-     */
-    @CommandLine.Option(
-            names = {"-p", "--precision"},
-            paramLabel = "<integer>",
-            description = {
-                    "Sets the maximum number of decimal places",
-                    "for coordinate values in the output."
-            },
-            type = Integer.class)
-    private Integer precision;
-
     @Override
     protected Conversion.Format getFormat() {
         return Conversion.Format.geojson;
@@ -47,16 +36,14 @@ public class ToGeoJSONConverter extends AbstractConverter {
         super.call();
 
         // Figure out converter
-        ToGeoJSON converter = switch (this.format) {
-            case geojson -> ToGeoJSON.identity(this.input);
-            case kml -> ToGeoJSON.fromKML(this.input);
+        ToBlueMapMarker converter = switch (this.format) {
+            case geojson -> ToBlueMapMarker.fromGeoJSON(this.input);
+            case kml -> throw new RuntimeException("Not Supported yet.");
             case bluemap -> throw new RuntimeException("Not Supported yet.");
             case null -> throw new RuntimeException(
                     "Conversion format return null, this should not happen."
             );
         };
-
-        if(precision != null) converter.setPrecision(precision);
 
         if(compact) converter.disablePrettyPrint();
 

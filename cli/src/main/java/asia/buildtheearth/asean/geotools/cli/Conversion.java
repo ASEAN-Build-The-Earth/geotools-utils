@@ -51,7 +51,8 @@ class Conversion implements CommandLine.ITypeConverter<Conversion.Format>, Itera
      */
     public enum Format {
         geojson("geojson", "json", "gjson"),
-        kml("kml");
+        kml("kml"),
+        bluemap("json");
 
         Format(String @NotNull ... extensions) {
             for (String ext : extensions) extMap.put(ext, this);

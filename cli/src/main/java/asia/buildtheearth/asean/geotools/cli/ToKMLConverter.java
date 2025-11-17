@@ -34,6 +34,7 @@ public class ToKMLConverter extends AbstractConverter {
         ToKML converter = switch (this.format) {
             case kml -> ToKML.identity(this.input);
             case geojson -> ToKML.fromGeoJSON(this.input);
+            case bluemap -> throw new RuntimeException("Not Supported yet.");
             case null -> throw new RuntimeException(
                 "Conversion format return null, this should not happen."
             );

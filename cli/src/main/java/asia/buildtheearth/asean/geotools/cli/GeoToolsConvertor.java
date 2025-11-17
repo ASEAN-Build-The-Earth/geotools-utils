@@ -3,7 +3,12 @@ package asia.buildtheearth.asean.geotools.cli;
 import picocli.CommandLine;
 
 @CommandLine.Command(name = "convert", version = "1.0.0",
-        subcommands = { ToKMLConverter.class, ToGeoJSONConverter.class, CommandLine.HelpCommand.class },
+        subcommands = {
+            ToKMLConverter.class,
+            ToGeoJSONConverter.class,
+            ToBlueMapConverter.class,
+            CommandLine.HelpCommand.class
+        },
         description = "Convert geospatial data from one format to other format")
 @SuppressWarnings("unused")
 public class GeoToolsConvertor  {
