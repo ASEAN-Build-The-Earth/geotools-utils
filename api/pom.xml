@@ -80,68 +80,8 @@
                     <outputDirectory>${project.build.directory}</outputDirectory>
                     <createDependencyReducedPom>true</createDependencyReducedPom>
                     <filters>
-                        <!-- Global Includes: Whitelist ALL artifacts we will be using -->
                         <filter>
                             <artifact>*:*</artifact>
-                            <includes>
-                                <!-- Cache is required by eclipse XSD Schema definition-->
-                                <include>cache/**</include>
-                                <!-- Takes Metadata from all dependencies into account  -->
-                                <include>META-INF/**</include>
-                            <!-- Build-The-Earth libraries -->
-                                <include>asia/buildtheearth/**</include>
-                                <include>net/buildtheearth/terraminusminus/**</include>
-                                <include>net/daporkchop/lib/**</include>
-                                <include>de/bluecolored/bluemap/**</include>
-                            <!-- Utility libraries -->
-                                <include>io/netty/buffer/**</include>
-                                <include>io/netty/util/**</include>
-                                <include>javax/measure/**</include>
-                                <include>com/bedatadriven/jackson/**</include>
-                                <include>com/fasterxml/jackson/**</include>
-                                <include>com/fasterxml/jackson/databind/**</include>
-                                <include>com/flowpowered/**</include>
-                                <include>com/google/common/base/**</include>
-                                <include>com/google/gson/**</include>
-                                <include>org/apache/commons/**</include>
-                                <include>org/apache/commons/lang3/**</include>
-                                <include>org/apache/logging/log4j/**</include>
-                                <include>org/picocontainer/**</include>
-                            <!-- GeoTools Libraries -->
-                                <include>org/geotools/api/**</include>
-                                <include>org/geotools/data/**</include>
-                                <include>org/geotools/factory/**</include>
-                                <include>org/geotools/feature/**</include>
-                                <include>org/geotools/filter/**</include>
-                                <include>org/geotools/geometry/**</include>
-                                <include>org/geotools/geometry/util/**</include>
-                                <include>org/geotools/kml/**</include>
-                                <include>org/geotools/measure/**</include>
-                                <include>org/geotools/metadata/**</include>
-                                <include>org/geotools/referencing/**</include>
-                                <include>org/geotools/styling/**</include>
-                                <include>org/geotools/util/**</include>
-                                <include>org/geotools/xml/**</include>
-                                <include>org/geotools/xs/**</include>
-                                <include>org/geotools/xsd/**</include>
-                                <include>org/geotools/temporal/**</include>
-                                <!-- GeoTools mainly use Eclipse as its modeling framework -->
-                                <include>org/eclipse/**</include>
-                                <include>org/eclipse/emf/**</include>
-                                <!-- Image/Raster Processing Library -->
-                                <include>org/eclipse/imagen/**</include>
-                                <include>org/eclipse/xsd/**</include>
-                                <!-- GeoTools' vector geometry manipulating -->
-                                <include>org/locationtech/jts/geom/**</include>
-                                <include>org/locationtech/jts/index/**</include>
-                                <include>org/locationtech/jts/util/**</include>
-                                <!-- Units Of Measurement -->
-                                <include>si/uom/**</include>
-                                <include>si/uom/quantity/**</include>
-                                <include>systems/uom/common/**</include>
-                                <include>tech/units/indriya/**</include>
-                                <include>tech/uom/lib/common/**</include>
-                            </includes>
                             <excludes>
                                 <exclude>module-info.class</exclude>
                                 <exclude>META-INF/*.SF</exclude>
@@ -154,128 +94,7 @@
                                 <exclude>META-INF/registryFile.jai</exclude>
                             </excludes>
                         </filter>
-                        <!-- Unused Land: Exclusion for many unused classes/datasets-->
-                        <filter>
-                            <!-- We only use terraminusminus for projection, datasets is not needed -->
-                            <artifact>net.buildtheearth.terraminusminus:terraminusminus-core</artifact>
-                            <excludes>
-                                <exclude>net/buildtheearth/terraminusminus/dataset/**</exclude>
-                            </excludes>
-                        </filter>
-                        <filter>
-                            <artifact>org.geotools:gt-referencing</artifact>
-                            <excludes>
-                                <!-- Earth Gravitational Model, Likely we will never need this -->
-                                <exclude>org/geotools/referencing/operation/transform/EGM180.nor</exclude>
-                            </excludes>
-                        </filter>
-                        <filter>
-                            <artifact>org.eclipse.imagen:imagen-core</artifact>
-                            <excludes>
-                            <!--<exclude>opimage</exclude> -->
-                            <!--<exclude>range</exclude>   -->
-                            <!--<exclude>stats</exclude>   -->
-                            <!--<exclude>util</exclude>    -->
-                                <exclude>org/eclipse/imagen/media/affine/**</exclude>
-                                <exclude>org/eclipse/imagen/media/algebra/**</exclude>
-                                <exclude>org/eclipse/imagen/media/bandcombine/**</exclude>
-                                <exclude>org/eclipse/imagen/media/bandmerge/**</exclude>
-                                <exclude>org/eclipse/imagen/media/bandselect/**</exclude>
-                                <exclude>org/eclipse/imagen/media/binarize/**</exclude>
-                                <exclude>org/eclipse/imagen/media/border/**</exclude>
-                                <exclude>org/eclipse/imagen/media/buffer/**</exclude>
-                                <exclude>org/eclipse/imagen/media/classifier/**</exclude>
-                                <exclude>org/eclipse/imagen/media/colorconvert/**</exclude>
-                                <exclude>org/eclipse/imagen/media/colorindexer/**</exclude>
-                                <exclude>org/eclipse/imagen/media/convolve/**</exclude>
-                                <exclude>org/eclipse/imagen/media/crop/**</exclude>
-                                <exclude>org/eclipse/imagen/media/errordiffusion/**</exclude>
-                                <exclude>org/eclipse/imagen/media/format/**</exclude>
-                                <exclude>org/eclipse/imagen/media/imagefunction/**</exclude>
-                                <exclude>org/eclipse/imagen/media/imageread/**</exclude>
-                                <exclude>org/eclipse/imagen/media/interpolators/**</exclude>
-                                <exclude>org/eclipse/imagen/media/iterator/**</exclude>
-                                <exclude>org/eclipse/imagen/media/iterators/**</exclude>
-                                <exclude>org/eclipse/imagen/media/jts/**</exclude>
-                                <exclude>org/eclipse/imagen/media/kernel/**</exclude>
-                                <exclude>org/eclipse/imagen/media/lookup/**</exclude>
-                                <exclude>org/eclipse/imagen/media/mosaic/**</exclude>
-                                <exclude>org/eclipse/imagen/media/nullop/**</exclude>
-                                <exclude>org/eclipse/imagen/media/numeric/**</exclude>
-                                <exclude>org/eclipse/imagen/media/orderdither/**</exclude>
-                                <exclude>org/eclipse/imagen/media/piecewise/**</exclude>
-                                <exclude>org/eclipse/imagen/media/rescale/**</exclude>
-                                <exclude>org/eclipse/imagen/media/rlookup/**</exclude>
-                                <exclude>org/eclipse/imagen/media/scale/**</exclude>
-                                <exclude>org/eclipse/imagen/media/serialize/**</exclude>
-                                <exclude>org/eclipse/imagen/media/shadedrelief/**</exclude>
-                                <exclude>org/eclipse/imagen/media/swing/**</exclude>
-                                <exclude>org/eclipse/imagen/media/translate/**</exclude>
-                                <exclude>org/eclipse/imagen/media/utilities/**</exclude>
-                                <exclude>org/eclipse/imagen/media/vectorbin/**</exclude>
-                                <exclude>org/eclipse/imagen/media/viewer/**</exclude>
-                                <exclude>org/eclipse/imagen/media/warp/**</exclude>
-                                <exclude>org/eclipse/imagen/media/zonal/**</exclude>
-                            </excludes>
-                        </filter>
-                        <filter>
-                            <artifact>org.geotools:gt-main</artifact>
-                            <excludes>
-                                <exclude>org/geotools/filter/function/**</exclude>
-                                <exclude>org/geotools/filter/visitor/**</exclude>
-                                <exclude>org/geotools/filter/spatial/**</exclude>
-                                <exclude>org/geotools/data/directory/**</exclude>
-                                <exclude>org/geotools/data/util/**</exclude>
-                                <exclude>org/geotools/data/collection/**</exclude>
-                                <exclude>org/geotools/data/ows/**</exclude>
-                                <exclude>org/geotools/data/crs/**</exclude>
-                                <exclude>org/geotools/data/memory/**</exclude>
-                                <exclude>org/geotools/data/view/**</exclude>
-                                <exclude>org/geotools/data/sort/**</exclude>
-                            </excludes>
-                        </filter>
                     </filters>
-                    <artifactSet>
-                        <excludes>
-                            <!-- Unused dependencies result from maven-dependency-plugin -->
-                            <!-- mvn dependency:analyze -->
-<!--                            <exclude>picocontainer:picocontainer</exclude>-->
-                            <exclude>com.google.code.findbugs</exclude>
-                            <exclude>com.google.errorprone:error_prone_annotations</exclude>
-<!--                            <exclude>org.eclipse.emf:org.eclipse.emf.ecore.xmi</exclude>-->
-<!--                            <exclude>systems.uom:systems-common</exclude>-->
-                            <exclude>org.hsqldb:hsqldb</exclude>
-<!--                            <exclude>tech.units:indriya</exclude>-->
-<!--                            <exclude>com.fasterxml.jackson.core:jackson-databind</exclude>-->
-<!--                            <exclude>javax.measure:unit-api</exclude>-->
-<!--                            <exclude>commons-io:commons-io</exclude>-->
-<!--                            <exclude>commons-io:commons-io</exclude>-->
-                            <exclude>jakarta.inject:jakarta.inject-api</exclude>
-<!--                            <exclude>tech.uom.lib:uom-lib-common</exclude>-->
-<!--                            <exclude>org.apache.commons:commons-lang3</exclude>-->
-                            <exclude>org.geotools:gt-cql</exclude>
-                            <exclude>org.geotools:gt-epsg-hsql</exclude> <!-- we use gt-epsg-wkt -->
-                            <exclude>org.ejml:ejml-ddense</exclude>
-                            <exclude>com.google.j2objc:j2objc-annotations</exclude>
-<!--                            <exclude>com.google.guava:guava</exclude>-->
-<!--                            <exclude>org.eclipse.xsd:org.eclipse.xsd</exclude>-->
-<!--                            <exclude>org.eclipse.emf:org.eclipse.emf.common</exclude>-->
-                            <exclude>org.ejml:ejml-core</exclude>
-<!--                            <exclude>si.uom:si-units</exclude>-->
-<!--                            <exclude>org.apache.commons:commons-collections4</exclude>-->
-<!--                            <exclude>org.eclipse.emf:org.eclipse.emf.ecore</exclude>-->
-                            <exclude>org.apiguardian:apiguardian-api</exclude>
-<!--                            <exclude>com.fasterxml.jackson.core:jackson-core</exclude>-->
-                            <exclude>net.sf.geographiclib:GeographicLib-Java</exclude>
-<!--                            <exclude>org.geotools:gt-xml</exclude>-->
-                            <exclude>commons-jxpath:commons-jxpath</exclude>
-                            <exclude>org.apache.commons:commons-imaging</exclude>
-                            <exclude>org.checkerframework:checker-qual</exclude>
-                            <exclude>org.geotools:gt-process</exclude>
-<!--                            <exclude>com.fasterxml.jackson.core:jackson-annotations</exclude>-->
-<!--                            <exclude>si.uom:si-quantity</exclude>-->
-                        </excludes>
-                    </artifactSet>
                     <transformers>
                         <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"/>
                         <transformer implementation="org.apache.maven.plugins.shade.resource.ApacheLicenseResourceTransformer"/>
@@ -1012,6 +831,193 @@
                     <url>https://maven.pkg.github.com/asean-build-the-earth/geotools-utils</url>
                 </repository>
             </distributionManagement>
+        </profile>
+        <profile>
+            <id>minify</id>
+            <!-- This reduces jar size from ~31MB to ~18MB -->
+            <build><plugins><plugin>
+                <artifactId>maven-shade-plugin</artifactId>
+                <configuration combine.self="append">
+                    <filters combine.self="override">
+                        <!-- Global Includes: Whitelist ALL artifacts we will be using -->
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <includes>
+                                <!-- Cache is required by eclipse XSD Schema definition-->
+                                <include>cache/**</include>
+                                <!-- Takes Metadata from all dependencies into account  -->
+                                <include>META-INF/**</include>
+                                <!-- Build-The-Earth libraries -->
+                                <include>asia/buildtheearth/**</include>
+                                <include>net/buildtheearth/terraminusminus/**</include>
+                                <include>net/daporkchop/lib/**</include>
+                                <include>de/bluecolored/bluemap/**</include>
+                                <!-- Utility libraries -->
+                                <include>io/netty/buffer/**</include>
+                                <include>io/netty/util/**</include>
+                                <include>javax/measure/**</include>
+                                <include>com/bedatadriven/jackson/**</include>
+                                <include>com/fasterxml/jackson/**</include>
+                                <include>com/fasterxml/jackson/databind/**</include>
+                                <include>com/flowpowered/**</include>
+                                <include>com/google/common/base/**</include>
+                                <include>com/google/gson/**</include>
+                                <include>org/apache/commons/**</include>
+                                <include>org/apache/commons/lang3/**</include>
+                                <include>org/apache/logging/log4j/**</include>
+                                <include>org/picocontainer/**</include>
+                                <!-- GeoTools Libraries -->
+                                <include>org/geotools/api/**</include>
+                                <include>org/geotools/data/**</include>
+                                <include>org/geotools/factory/**</include>
+                                <include>org/geotools/feature/**</include>
+                                <include>org/geotools/filter/**</include>
+                                <include>org/geotools/geometry/**</include>
+                                <include>org/geotools/geometry/util/**</include>
+                                <include>org/geotools/kml/**</include>
+                                <include>org/geotools/measure/**</include>
+                                <include>org/geotools/metadata/**</include>
+                                <include>org/geotools/referencing/**</include>
+                                <include>org/geotools/styling/**</include>
+                                <include>org/geotools/util/**</include>
+                                <include>org/geotools/xml/**</include>
+                                <include>org/geotools/xs/**</include>
+                                <include>org/geotools/xsd/**</include>
+                                <include>org/geotools/temporal/**</include>
+                                <!-- GeoTools mainly use Eclipse as its modeling framework -->
+                                <include>org/eclipse/**</include>
+                                <include>org/eclipse/emf/**</include>
+                                <!-- Image/Raster Processing Library -->
+                                <include>org/eclipse/imagen/**</include>
+                                <include>org/eclipse/xsd/**</include>
+                                <!-- GeoTools' vector geometry manipulating -->
+                                <include>org/locationtech/jts/geom/**</include>
+                                <include>org/locationtech/jts/index/**</include>
+                                <include>org/locationtech/jts/util/**</include>
+                                <!-- Units Of Measurement -->
+                                <include>si/uom/**</include>
+                                <include>si/uom/quantity/**</include>
+                                <include>systems/uom/common/**</include>
+                                <include>tech/units/indriya/**</include>
+                                <include>tech/uom/lib/common/**</include>
+                            </includes>
+                            <excludes>
+                                <exclude>module-info.class</exclude>
+                                <exclude>META-INF/*.SF</exclude>
+                                <exclude>META-INF/*.MF</exclude>
+                                <exclude>META-INF/*.DSA</exclude>
+                                <exclude>META-INF/*.RSA</exclude>
+                                <exclude>META-INF/versions/**/*</exclude>
+                                <exclude>META-INF/native/**/*</exclude>
+                                <exclude>META-INF/native-image/**/*</exclude>
+                                <exclude>META-INF/registryFile.jai</exclude>
+                            </excludes>
+                        </filter>
+                        <!-- Unused Land: Exclusion for many unused classes/datasets-->
+                        <filter>
+                            <!-- We only use terraminusminus for projection, datasets is not needed -->
+                            <artifact>net.buildtheearth.terraminusminus:terraminusminus-core</artifact>
+                            <excludes>
+                                <exclude>net/buildtheearth/terraminusminus/dataset/**</exclude>
+                            </excludes>
+                        </filter>
+                        <filter>
+                            <artifact>org.geotools:gt-referencing</artifact>
+                            <excludes>
+                                <!-- Earth Gravitational Model, Likely we will never need this -->
+                                <exclude>org/geotools/referencing/operation/transform/EGM180.nor</exclude>
+                            </excludes>
+                        </filter>
+                        <filter>
+                            <artifact>org.eclipse.imagen:imagen-core</artifact>
+                            <!-- Image (Media) processing, comment out to use more module -->
+                            <excludes>
+                                <!--<exclude>opimage</exclude> -->
+                                <!--<exclude>range</exclude>   -->
+                                <!--<exclude>stats</exclude>   -->
+                                <!--<exclude>util</exclude>    -->
+                                <exclude>org/eclipse/imagen/media/affine/**</exclude>
+                                <exclude>org/eclipse/imagen/media/algebra/**</exclude>
+                                <exclude>org/eclipse/imagen/media/bandcombine/**</exclude>
+                                <exclude>org/eclipse/imagen/media/bandmerge/**</exclude>
+                                <exclude>org/eclipse/imagen/media/bandselect/**</exclude>
+                                <exclude>org/eclipse/imagen/media/binarize/**</exclude>
+                                <exclude>org/eclipse/imagen/media/border/**</exclude>
+                                <exclude>org/eclipse/imagen/media/buffer/**</exclude>
+                                <exclude>org/eclipse/imagen/media/classifier/**</exclude>
+                                <exclude>org/eclipse/imagen/media/colorconvert/**</exclude>
+                                <exclude>org/eclipse/imagen/media/colorindexer/**</exclude>
+                                <exclude>org/eclipse/imagen/media/convolve/**</exclude>
+                                <exclude>org/eclipse/imagen/media/crop/**</exclude>
+                                <exclude>org/eclipse/imagen/media/errordiffusion/**</exclude>
+                                <exclude>org/eclipse/imagen/media/format/**</exclude>
+                                <exclude>org/eclipse/imagen/media/imagefunction/**</exclude>
+                                <exclude>org/eclipse/imagen/media/imageread/**</exclude>
+                                <exclude>org/eclipse/imagen/media/interpolators/**</exclude>
+                                <exclude>org/eclipse/imagen/media/iterator/**</exclude>
+                                <exclude>org/eclipse/imagen/media/iterators/**</exclude>
+                                <exclude>org/eclipse/imagen/media/jts/**</exclude>
+                                <exclude>org/eclipse/imagen/media/kernel/**</exclude>
+                                <exclude>org/eclipse/imagen/media/lookup/**</exclude>
+                                <exclude>org/eclipse/imagen/media/mosaic/**</exclude>
+                                <exclude>org/eclipse/imagen/media/nullop/**</exclude>
+                                <exclude>org/eclipse/imagen/media/numeric/**</exclude>
+                                <exclude>org/eclipse/imagen/media/orderdither/**</exclude>
+                                <exclude>org/eclipse/imagen/media/piecewise/**</exclude>
+                                <exclude>org/eclipse/imagen/media/rescale/**</exclude>
+                                <exclude>org/eclipse/imagen/media/rlookup/**</exclude>
+                                <exclude>org/eclipse/imagen/media/scale/**</exclude>
+                                <exclude>org/eclipse/imagen/media/serialize/**</exclude>
+                                <exclude>org/eclipse/imagen/media/shadedrelief/**</exclude>
+                                <exclude>org/eclipse/imagen/media/swing/**</exclude>
+                                <exclude>org/eclipse/imagen/media/translate/**</exclude>
+                                <exclude>org/eclipse/imagen/media/utilities/**</exclude>
+                                <exclude>org/eclipse/imagen/media/vectorbin/**</exclude>
+                                <exclude>org/eclipse/imagen/media/viewer/**</exclude>
+                                <exclude>org/eclipse/imagen/media/warp/**</exclude>
+                                <exclude>org/eclipse/imagen/media/zonal/**</exclude>
+                            </excludes>
+                        </filter>
+                        <filter>
+                            <artifact>org.geotools:gt-main</artifact>
+                            <excludes>
+                                <exclude>org/geotools/filter/function/**</exclude>
+                                <exclude>org/geotools/filter/visitor/**</exclude>
+                                <exclude>org/geotools/filter/spatial/**</exclude>
+                                <!-- We only use simple features data -->
+                                <exclude>org/geotools/data/directory/**</exclude>
+                                <exclude>org/geotools/data/util/**</exclude>
+                                <exclude>org/geotools/data/collection/**</exclude>
+                                <exclude>org/geotools/data/ows/**</exclude>
+                                <exclude>org/geotools/data/crs/**</exclude>
+                                <exclude>org/geotools/data/memory/**</exclude>
+                                <exclude>org/geotools/data/view/**</exclude>
+                                <exclude>org/geotools/data/sort/**</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
+                    <!-- Unused dependencies result from maven-dependency-plugin -->
+                    <artifactSet>
+                        <excludes>
+                            <exclude>com.google.code.findbugs</exclude>
+                            <exclude>com.google.errorprone:error_prone_annotations</exclude>
+                            <exclude>org.hsqldb:hsqldb</exclude>
+                            <exclude>jakarta.inject:jakarta.inject-api</exclude>
+                            <exclude>org.geotools:gt-cql</exclude>
+                            <exclude>org.geotools:gt-epsg-hsql</exclude> <!-- we use gt-epsg-wkt -->
+                            <exclude>org.ejml:ejml-ddense</exclude>
+                            <exclude>com.google.j2objc:j2objc-annotations</exclude>
+                            <exclude>org.ejml:ejml-core</exclude>
+                            <exclude>org.apiguardian:apiguardian-api</exclude>
+                            <exclude>net.sf.geographiclib:GeographicLib-Java</exclude>
+                            <exclude>commons-jxpath:commons-jxpath</exclude>
+                            <exclude>org.apache.commons:commons-imaging</exclude>
+                            <exclude>org.checkerframework:checker-qual</exclude>
+                            <exclude>org.geotools:gt-process</exclude>
+                        </excludes>
+                    </artifactSet>
+                </configuration>
+            </plugin></plugins></build>
         </profile>
     </profiles>
 </project>
