@@ -1,11 +1,10 @@
 package asia.buildtheearth.asean.geotools;
 
 import com.bedatadriven.jackson.datatype.jts.JtsModule;
-import org.geotools.api.feature.Property;
-import org.geotools.api.feature.simple.SimpleFeature;
 import org.geotools.data.geojson.GeoJSONWriter;
 import org.jetbrains.annotations.NotNull;
 import org.locationtech.jts.geom.*;
+import org.locationtech.jts.geom.util.GeometryEditor;
 
 import javax.xml.namespace.QName;
 import java.io.*;
@@ -154,21 +153,46 @@ abstract sealed class AbstractGeoToolsConverter
     /**
      * Applies Z-coordinate modifications to the given coordinate array.
      *
-     * @param coordinates the array of coordinates to modify
+     * @param toEdit the geometry to be edited.
+     * @return edited geometry.
      */
-    protected final void applyAllCoordinates(Coordinate @NotNull [] coordinates) {
-        if (normalizedZ != null) {
-            // Check for normalized Z which takes 1st priority
-            for (Coordinate coordinate : coordinates) coordinate.setZ(normalizedZ);
-        }
-        else if (offsetZ != null) {
-            // Else, if offsetZ is set then apply it to all coordinates
-            for (Coordinate coordinate : coordinates) {
-                double originalZ = coordinate.getZ();
+    protected final Geometry applyAllCoordinates(Geometry toEdit) {
+        GeometryEditor editor = new GeometryEditor();
 
-                // Retain original Z if some coordinate value is NaN
-                coordinate.setZ(Double.isNaN(originalZ) ? originalZ : originalZ + offsetZ);
+        return editor.edit(toEdit, new DefaultCoordinateOperation());
+    }
+
+    /**
+     * Default operation that apply Z coordinate modifier.
+     * <p>
+     * TODO: The class {@link CoordinateArrays} has many utilities method to clean up coordinates of any is invalid
+     */
+    class DefaultCoordinateOperation extends GeometryEditor.CoordinateOperation {
+        /**
+         * Operate all coordinates.
+         * @param coordinates the coordinate array to operate on
+         * @param geometry the geometry containing the coordinate list
+         * @return Modified coordinate with Z value edited
+         */
+        @Override
+        public Coordinate[] edit(Coordinate[] coordinates, Geometry geometry) {
+            Coordinate[] edits = CoordinateArrays.copyDeep(coordinates);
+
+            if (normalizedZ != null) {
+                // Check for normalized Z which takes 1st priority
+                for (Coordinate coordinate : edits) coordinate.setZ(normalizedZ);
             }
+            else if (offsetZ != null) {
+                // Else, if offsetZ is set then apply it to all coordinates
+                for (Coordinate coordinate : edits) {
+                    double originalZ = coordinate.getZ();
+
+                    // Retain original Z if some coordinate value is NaN
+                    coordinate.setZ(Double.isNaN(originalZ) ? originalZ : originalZ + offsetZ);
+                }
+            }
+
+            return edits;
         }
     }
 }

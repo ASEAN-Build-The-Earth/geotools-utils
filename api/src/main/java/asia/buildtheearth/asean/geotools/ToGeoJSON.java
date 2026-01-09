@@ -157,8 +157,7 @@ public abstract sealed class ToGeoJSON extends AbstractGeoToolsConverter {
             if(props == null) continue;
 
             if(props.getValue() instanceof Geometry geometry) {
-                this.applyAllCoordinates(geometry.getCoordinates());
-                geometry.geometryChanged();
+                props.setValue(this.applyAllCoordinates(geometry));
             }
         }
     }

@@ -136,11 +136,8 @@ public abstract sealed class ToBlueMapMarker extends AbstractGeoToolsConverter {
                     SimpleFeature feature = reader.next();
 
                     Object geometryAttribute = feature.getAttribute(GeoJSONReader.GEOMETRY_NAME);
-                    if (geometryAttribute instanceof Geometry geometry) {
-                        if (this.hasCoordinatesModifier()) {
-                            this.applyAllCoordinates(geometry.getCoordinates());
-                            geometry.geometryChanged();
-                        }
+                    if (geometryAttribute instanceof Geometry raw) {
+                        Geometry geometry = this.hasCoordinatesModifier()? this.applyAllCoordinates(raw) : raw;
 
                         MathTransform transform = this.projection.get();
 
