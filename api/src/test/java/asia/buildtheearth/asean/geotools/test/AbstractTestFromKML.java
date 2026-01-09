@@ -68,7 +68,6 @@ abstract sealed class AbstractTestFromKML permits TestFromKML {
      * @param test     the KML test case being run
      * @param tempDir  a temporary directory provided by JUnit for isolation
      */
-
     @BeforeParameterizedClassInvocation
     static void beforeInvocation(@NotNull KML.Test test, @TempDir @NotNull Path tempDir) {
         AbstractTestFromKML.source = tempDir.resolve(SOURCE_FILE_NAME + "kml");

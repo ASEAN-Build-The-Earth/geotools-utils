@@ -20,7 +20,7 @@ import java.io.*;
  */
 abstract sealed class AbstractGeoToolsConverter
         implements GeoToolsConverter
-        permits ToBlueMapMarker, ToGeoJSON, ToKML {
+        permits SchematicExport, ToBlueMapMarker, ToGeoJSON, ToKML {
 
     /** Whether to pretty-print the output XML or JSON. */
     protected boolean prettyPrint = true;

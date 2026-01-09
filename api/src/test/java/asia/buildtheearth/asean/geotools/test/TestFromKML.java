@@ -2,7 +2,6 @@ package asia.buildtheearth.asean.geotools.test;
 
 import asia.buildtheearth.asean.geotools.*;
 import asia.buildtheearth.asean.geotools.kml.store.KMLFeatureReader;
-import asia.buildtheearth.asean.geotools.projection.MinecraftProjection;
 import asia.buildtheearth.asean.geotools.test.utils.CoordinatesTraverser;
 import io.hosuaby.inject.resources.junit.jupiter.GivenBinaryResource;
 import io.hosuaby.inject.resources.junit.jupiter.TestWithResources;
@@ -16,7 +15,6 @@ import org.locationtech.jts.geom.Geometry;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
 
 /**
  * Test KML file for GeoJSON conversion.
@@ -65,7 +63,6 @@ public final class TestFromKML extends AbstractTestFromKML {
         });
     }
 
-
     @Test @Order(3)
     @DisplayName("Convert to BlueMap Marker(s)")
     public void toBlueMapMarker() {
@@ -78,7 +75,6 @@ public final class TestFromKML extends AbstractTestFromKML {
 
             System.out.print(Files.readString(markers));
         });
-
     }
 
     @Test @Order(4)

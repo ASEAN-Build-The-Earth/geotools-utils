@@ -274,6 +274,11 @@
             <id>bluecolored</id>
             <url>https://repo.bluecolored.de/releases</url>
         </repository>
+        <!-- WorldEdit API -->
+        <repository>
+            <id>EngineHub Repository</id>
+            <url>https://maven.enginehub.org/repo</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -374,6 +379,15 @@
             <groupId>de.bluecolored</groupId>
             <artifactId>bluemap-api</artifactId>
             <version>2.7.4</version>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- WorldEdit API for Schematic support -->
+        <dependency>
+            <groupId>com.sk89q.worldedit</groupId>
+            <artifactId>worldedit-core</artifactId>
+            <version>7.3.18</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
@@ -568,7 +582,7 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>2.17.1</version>
+            <version>2.25.3</version>
             <scope>provided</scope>
             <optional>false</optional>
         </dependency>
@@ -667,7 +681,7 @@
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>2.8.9</version>
+            <version>2.10.1</version>
             <scope>provided</scope>
             <optional>false</optional>
         </dependency>
@@ -786,6 +800,38 @@
                     <artifactId>junit</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <!-- MockBukkit Test -->
+        <dependency>
+            <groupId>org.mockbukkit.mockbukkit</groupId>
+            <artifactId>mockbukkit-v1.21</artifactId>
+            <version>4.66.0</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.jupiter</groupId>
+                    <artifactId>junit-jupiter</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.commons</groupId>
+                    <artifactId>commons-lang3</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- WorldEdit Bukkit for Schematic Testing -->
+        <dependency>
+            <groupId>com.sk89q.worldedit</groupId>
+            <artifactId>worldedit-bukkit</artifactId>
+            <version>7.3.18</version>
+            <scope>test</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <!-- Required for worldedit startup for some reason-->
+            <groupId>com.google.guava</groupId>
+            <artifactId>failureaccess</artifactId>
+            <version>1.0</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <dependencyManagement>
@@ -986,7 +1032,7 @@
                                 <exclude>org/geotools/filter/spatial/**</exclude>
                                 <!-- We only use simple features data -->
                                 <exclude>org/geotools/data/directory/**</exclude>
-                                <exclude>org/geotools/data/util/**</exclude>
+<!--                                <exclude>org/geotools/data/util/**</exclude>-->
                                 <exclude>org/geotools/data/collection/**</exclude>
                                 <exclude>org/geotools/data/ows/**</exclude>
                                 <exclude>org/geotools/data/crs/**</exclude>
