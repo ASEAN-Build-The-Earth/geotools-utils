@@ -1,0 +1,3 @@
+[submodule "lib/terra-projections"]
+	path = lib/terra-projections
+	url = https://github.com/ASEAN-Build-The-Earth/terra-projections.git

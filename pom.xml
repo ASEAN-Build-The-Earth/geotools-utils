@@ -15,6 +15,9 @@
     <inceptionYear>2025</inceptionYear>
 
     <modules>
+        <!-- Terra Projections Library -->
+        <!-- asia.buildtheearth.asean.geotools:terra-projections -->
+        <module>lib/terra-projections</module>
         <!-- Main API module -->
         <!-- asia.buildtheearth.asean.geotools:geotools-utils -->
         <module>api</module>
