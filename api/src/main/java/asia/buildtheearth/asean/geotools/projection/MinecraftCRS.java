@@ -6,19 +6,11 @@ import org.geotools.referencing.crs.DefaultProjectedCRS;
 import org.geotools.referencing.cs.DefaultCartesianCS;
 
 /**
- * Provides pre-defined {@link ProjectedCRS} instances for use within the Build The Earth project.
- * <p>
- * These CRS definitions are based on popular projection configurations used throughout the project,
- * particularly modified Dymaxion-based projections optimized for Minecraft scale and structure alignment.
- * <p>
- * The coordinate transformations are provided
- * via the {@link MinecraftProjection} class, which exposes statically available or offset-adjustable
- * {@link TerraProjection} implementations.
+ * Pre-defined CRS
  *
- * @see MinecraftProjection
- * @see TerraProjection
- * @see net.buildtheearth.terraminusminus.projection.dymaxion.BTEDymaxionProjection
+ * @deprecated Until I find better way to define CRS
  */
+@Deprecated
 public abstract class MinecraftCRS {
     private MinecraftCRS() {}
 

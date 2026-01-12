@@ -1,6 +1,5 @@
 package asia.buildtheearth.asean.geotools.worldedit;
 
-import asia.buildtheearth.asean.geotools.projection.TerraProjection;
 import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.MaxChangedBlocksException;
 import com.sk89q.worldedit.function.pattern.Pattern;
@@ -12,6 +11,7 @@ import com.sk89q.worldedit.world.block.*;
 import org.geotools.api.referencing.operation.TransformException;
 import org.geotools.geometry.jts.Geometries;
 import org.geotools.geometry.jts.GeometryCoordinateSequenceTransformer;
+import org.geotools.referencing.operation.projection.MapProjection;
 import org.locationtech.jts.geom.*;
 
 import org.jetbrains.annotations.Contract;
@@ -36,7 +36,7 @@ public class WorldEditGeometryWriter extends AbstractGeometryWriter {
     }
 
     public WorldEditGeometryWriter(@NotNull EditSession editSession,
-                                   @NotNull TerraProjection projection,
+                                   @NotNull MapProjection projection,
                                    EnumMap<Geometries, ? extends Pattern> patternMap,
                                    @NotNull Pattern fallback) {
         super(patternMap, fallback);
@@ -53,18 +53,18 @@ public class WorldEditGeometryWriter extends AbstractGeometryWriter {
      */
     @Deprecated
     public WorldEditGeometryWriter(@NotNull EditSession editSession,
-                                   @NotNull TerraProjection projection) {
+                                   @NotNull MapProjection projection) {
         this(editSession, projection, null, DEFAULT_PLACING_DIAMOND_BLOCK);
     }
 
     public WorldEditGeometryWriter(@NotNull EditSession editSession,
-                                   @NotNull TerraProjection projection,
+                                   @NotNull MapProjection projection,
                                    EnumMap<Geometries, ? extends Pattern> patternMap) {
         this(editSession, projection, patternMap, DEFAULT_PLACING_DIAMOND_BLOCK);
     }
 
     public WorldEditGeometryWriter(@NotNull EditSession editSession,
-                                   @NotNull TerraProjection projection,
+                                   @NotNull MapProjection projection,
                                    @NotNull Pattern pattern) {
         this(editSession, projection, null, pattern);
     }

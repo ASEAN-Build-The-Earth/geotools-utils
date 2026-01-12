@@ -59,11 +59,7 @@
 
         <resources>
             <resource>
-                <directory>tools/src/main/resources</directory>
-                <filtering>false</filtering>
-            </resource>
-            <resource>
-                <directory>tools/src/test/resources</directory>
+                <directory>src/main/resources</directory>
                 <filtering>false</filtering>
             </resource>
         </resources>
@@ -394,28 +390,10 @@
 
         <!-- TerraMinusMinus -->
         <dependency>
-            <groupId>net.buildtheearth.terraminusminus</groupId>
-            <artifactId>terraminusminus-core</artifactId>
-            <version>2.1.1-1.21.8</version>
+            <groupId>asia.buildtheearth.asean.geotools</groupId>
+            <artifactId>terra-projections</artifactId>
+            <version>${project.parent.version}</version>
             <scope>compile</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-codec</groupId>
-                    <artifactId>commons-codec</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>io.netty</groupId>
-                    <artifactId>netty-all</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>io.netty</groupId>
-                    <artifactId>netty-handler</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>it.unimi.dsi</groupId>
-                    <artifactId>fastutil</artifactId>
-                </exclusion>
-            </exclusions>
             <optional>false</optional>
         </dependency>
         <!-- TerraMinusMinus Dependencies -->
@@ -432,6 +410,18 @@
             <version>4.2.3.Final</version>
             <scope>compile</scope>
             <optional>false</optional>
+        </dependency>
+        <dependency>
+            <groupId>net.daporkchop.lib</groupId>
+            <artifactId>binary</artifactId>
+            <version>0.5.7-SNAPSHOT</version>
+            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>net.daporkchop.lib</groupId>
+                    <artifactId>unsafe</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- GeoTools Dependencies -->

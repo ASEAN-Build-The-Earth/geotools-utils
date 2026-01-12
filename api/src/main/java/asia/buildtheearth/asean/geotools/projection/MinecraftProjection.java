@@ -5,32 +5,26 @@ import net.buildtheearth.terraminusminus.projection.dymaxion.BTEDymaxionProjecti
 import net.buildtheearth.terraminusminus.projection.transform.FlipVerticalProjectionTransform;
 import net.buildtheearth.terraminusminus.projection.transform.OffsetProjectionTransform;
 import net.buildtheearth.terraminusminus.projection.transform.ScaleProjectionTransform;
-import org.geotools.api.referencing.AuthorityFactory;
-import org.geotools.api.referencing.crs.CRSAuthorityFactory;
-import org.geotools.api.referencing.crs.GeographicCRS;
-import org.geotools.api.referencing.crs.ProjectedCRS;
-import org.geotools.api.referencing.cs.CartesianCS;
-import org.geotools.api.referencing.cs.CoordinateSystem;
-import org.geotools.referencing.CRS;
-import org.geotools.referencing.crs.DefaultGeographicCRS;
-import org.geotools.referencing.crs.DefaultProjectedCRS;
-import org.geotools.referencing.cs.DefaultCartesianCS;
-import org.geotools.referencing.operation.DefaultConversion;
+import org.geotools.api.parameter.ParameterDescriptor;
+import org.geotools.api.parameter.ParameterValueGroup;
+import org.geotools.api.referencing.FactoryException;
+import org.geotools.api.referencing.operation.MathTransformFactory;
+import org.geotools.referencing.ReferencingFactoryFinder;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+
+import static asia.buildtheearth.asean.geotools.projection.DymaxionMapProjection.Provider.*;
 
 /**
  * Central registry for all BuildTheEarth-compatible projections.
  *
  * <h2>Projection Constants</h2>
  * <ul>
- *   <li>{@link #DEFAULT_BTE_PROJECTION} – Default BuildTheEarth projection centered globally.</li>
- *   <li>{@link #ASEAN_BTE_PROJECTION} – Regionally offset projection centered on Southeast Asia.</li>
- *   <li>{@link #CUSTOM_BTE_PROJECTION} – Factory for offset-adjusted Terra projections.</li>
- *   <li>{@link #CUSTOM_PROJECTION} – Factory for raw Terra projection instances.</li>
+ *   <li>{@link #getBTE()} – Default BuildTheEarth projection centered globally.</li>
+ *   <li>{@link #getASEAN()} – Regionally offset projection centered on Southeast Asia.</li>
+ *   <li>{@link #getWithOffset(double, double)} – Factory for offset-adjusted Terra projections.</li>
  * </ul>
  *
  * <p>
@@ -49,6 +43,34 @@ public abstract class MinecraftProjection {
      * </p>
      */
     public static final double EARTH_TO_MINECRAFT_SCALE = 7318261.522857145;
+
+    public static DymaxionMapProjection getBTE() throws FactoryException {
+        return get("bte_conformal_dymaxion", 0, 0);
+    }
+
+    public static DymaxionMapProjection getASEAN() throws FactoryException {
+        return get("bte_conformal_dymaxion", -13379008d, 2727648d);
+    }
+
+    public static DymaxionMapProjection getWithOffset(double offsetX, double offsetY) throws FactoryException {
+        return get("bte_conformal_dymaxion", offsetX, offsetY);
+    }
+
+    public static DymaxionMapProjection get(String projection, double offsetX, double offsetY) throws FactoryException {
+        MathTransformFactory mtFactory = ReferencingFactoryFinder.getMathTransformFactory(null);
+        final ParameterValueGroup parameters = mtFactory.getDefaultParameters("dymaxion");
+        set(parameters, PROJECTION, projection);
+        set(parameters, SEMI_MAJOR, 1.0d);
+        set(parameters, SEMI_MINOR, 1.0d);
+        set(parameters, FALSE_EASTING, offsetX);
+        set(parameters, FALSE_NORTHING, offsetY);
+        set(parameters, SCALE_FACTOR, EARTH_TO_MINECRAFT_SCALE);
+        return (DymaxionMapProjection) mtFactory.createParameterizedTransform(parameters);
+    }
+
+    private static <T> void set(ParameterValueGroup group, ParameterDescriptor<T> descriptor, T value) {
+        group.parameter(descriptor.getName().getCode()).setValue(value);
+    }
 
     /**
      * The default projection used by BuildTheEarth for global rendering.

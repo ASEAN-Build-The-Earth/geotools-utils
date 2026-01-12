@@ -1,6 +1,7 @@
 package asia.buildtheearth.asean.geotools;
 
 import com.bedatadriven.jackson.datatype.jts.JtsModule;
+import org.geotools.api.referencing.FactoryException;
 import org.geotools.data.geojson.GeoJSONWriter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -112,5 +113,5 @@ public interface GeoToolsConverter {
      * @param output the target file path to write the converted result to
      * @throws IOException if an I/O error occurs during reading or writing
      */
-    void convert(Path output) throws IOException;
+    void convert(Path output) throws FactoryException, IOException;
 }

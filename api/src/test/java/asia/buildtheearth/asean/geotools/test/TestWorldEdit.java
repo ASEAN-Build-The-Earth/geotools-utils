@@ -151,7 +151,7 @@ public class TestWorldEdit implements MockWorldEditServer {
             public void onEditSessionEvent(EditSessionEvent event) {
                 // Actor should only ever be our test instance.
                 Assertions.assertNotNull(event.getActor());
-                Assertions.assertEquals(event.getActor().getUniqueId(), TestWorldEditActor.UNIQUE_ID);
+                Assertions.assertEquals(TestWorldEditActor.UNIQUE_ID, event.getActor().getUniqueId());
 
                 if(event.getStage() == EditSession.Stage.BEFORE_CHANGE) {
                     event.setExtent(buffer);

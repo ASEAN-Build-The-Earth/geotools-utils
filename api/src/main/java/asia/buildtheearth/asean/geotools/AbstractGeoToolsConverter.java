@@ -1,7 +1,9 @@
 package asia.buildtheearth.asean.geotools;
 
 import com.bedatadriven.jackson.datatype.jts.JtsModule;
+import org.geotools.api.referencing.FactoryException;
 import org.geotools.data.geojson.GeoJSONWriter;
+import org.geotools.referencing.operation.projection.MapProjection;
 import org.jetbrains.annotations.NotNull;
 import org.locationtech.jts.geom.*;
 import org.locationtech.jts.geom.util.GeometryEditor;
@@ -20,6 +22,10 @@ import java.io.*;
 abstract sealed class AbstractGeoToolsConverter
         implements GeoToolsConverter
         permits SchematicExport, ToBlueMapMarker, ToGeoJSON, ToKML {
+
+    public interface ProjectionSupplier {
+        MapProjection get() throws FactoryException;
+    }
 
     /** Whether to pretty-print the output XML or JSON. */
     protected boolean prettyPrint = true;

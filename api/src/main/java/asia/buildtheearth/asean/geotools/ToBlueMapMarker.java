@@ -2,10 +2,10 @@ package asia.buildtheearth.asean.geotools;
 
 import asia.buildtheearth.asean.geotools.bluemap.BlueMapMarkerWriter;
 import asia.buildtheearth.asean.geotools.projection.MinecraftProjection;
-import asia.buildtheearth.asean.geotools.projection.TerraProjection;
 import de.bluecolored.bluemap.api.markers.*;
 import org.geotools.api.data.Query;
 import org.geotools.api.feature.simple.SimpleFeature;
+import org.geotools.api.referencing.FactoryException;
 import org.geotools.api.referencing.operation.MathTransform;
 import org.geotools.api.referencing.operation.TransformException;
 import org.geotools.data.geojson.GeoJSONReader;
@@ -14,18 +14,18 @@ import org.geotools.data.geojson.store.GeoJSONFeatureReader;
 import org.geotools.data.store.ContentEntry;
 import org.geotools.data.store.ContentState;
 import org.geotools.geometry.jts.JTS;
+import org.geotools.referencing.operation.projection.MapProjection;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.locationtech.jts.geom.*;
 
 import java.io.*;
 import java.nio.file.Path;
-import java.util.function.Supplier;
 
 public abstract sealed class ToBlueMapMarker extends AbstractGeoToolsConverter {
     private ToBlueMapMarker(File source) { super(source); }
 
-    protected Supplier<@NotNull TerraProjection> projection = () -> MinecraftProjection.DEFAULT_BTE_PROJECTION;
+    protected ProjectionSupplier projection = MinecraftProjection::getBTE;
     protected BlueMapMarkerWriter writer = new BlueMapMarkerWriter();
 
     protected String makerLabel = null;
@@ -36,7 +36,7 @@ public abstract sealed class ToBlueMapMarker extends AbstractGeoToolsConverter {
 
     /** {@inheritDoc} */
     @Override
-    public abstract void convert(Path output) throws IOException;
+    public abstract void convert(Path output) throws FactoryException, IOException;
 
     @Override
     public ToBlueMapMarker disablePrettyPrint() {
@@ -55,7 +55,7 @@ public abstract sealed class ToBlueMapMarker extends AbstractGeoToolsConverter {
      * @param projection New projection to set
      * @return This instance for chaining
      */
-    public ToBlueMapMarker setProjection(@NotNull TerraProjection projection) {
+    public ToBlueMapMarker setProjection(@NotNull MapProjection projection) {
         this.projection = () -> projection;
         return this;
     }
@@ -112,7 +112,7 @@ public abstract sealed class ToBlueMapMarker extends AbstractGeoToolsConverter {
         }
 
         @Override
-        public void convert(Path output) throws IOException {
+        public void convert(Path output) throws FactoryException, IOException {
             // Create a marker writer
             MarkerSet.Builder markerSet = MarkerSet.builder();
 

@@ -5,6 +5,7 @@ import asia.buildtheearth.asean.geotools.projection.MinecraftCRS;
 import asia.buildtheearth.asean.geotools.projection.MinecraftProjection;
 import asia.buildtheearth.asean.geotools.projection.TerraProjection;
 import org.geotools.api.feature.simple.SimpleFeature;
+import org.geotools.api.referencing.FactoryException;
 import org.geotools.api.referencing.operation.MathTransform;
 import org.geotools.api.referencing.operation.TransformException;
 import org.geotools.api.util.ProgressListener;
@@ -14,6 +15,7 @@ import org.geotools.feature.DefaultFeatureCollection;
 import org.geotools.geometry.jts.JTS;
 import org.geotools.geometry.jts.ReferencedEnvelope;
 import org.geotools.process.vector.VectorToRasterProcess;
+import org.geotools.referencing.operation.projection.MapProjection;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -47,7 +49,11 @@ import java.util.function.*;
 @Deprecated(since = "1.0.0")
 public class KMLToSchematic {
 
-    private Supplier<@NotNull TerraProjection> projection = () -> MinecraftProjection.DEFAULT_BTE_PROJECTION;
+    interface ProjectionSupplier {
+        MapProjection get() throws FactoryException;
+    }
+
+    private ProjectionSupplier projection = MinecraftProjection::getBTE;
     private final File kmlFile;
     private QName parsingElement = org.geotools.kml.KML.Placemark;
 
@@ -66,7 +72,7 @@ public class KMLToSchematic {
      * @param projection New projection to set
      * @return This instance for chaining
      */
-    public KMLToSchematic setProjection(@NotNull TerraProjection projection) {
+    public KMLToSchematic setProjection(@NotNull MapProjection projection) {
         this.projection = () -> projection;
         return this;
     }
@@ -101,7 +107,7 @@ public class KMLToSchematic {
      * @throws IOException if reading KML data or performing coordinate transformation fails.
      */
     @Deprecated(since = "1.0.0")
-    public List<RasterResult> rasterizedGeometries() throws IOException {
+    public List<RasterResult> rasterizedGeometries() throws IOException, FactoryException {
 
         // Read all KML features
         try(KMLFeatureReader reader = new KMLFeatureReader(this.kmlFile, this.parsingElement)) {

@@ -46,7 +46,10 @@ import java.io.Serializable;
  * </ul>
  *
  * <sub>Licensed under the GNU Lesser General Public License (LGPL) v2.1 or later.</sub>
+ *
+ * @deprecated See {@link DymaxionMapProjection}
  */
+@Deprecated
 public class TerraProjection extends AbstractMathTransform implements MathTransform2D, Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
