@@ -6,6 +6,7 @@ import com.sk89q.worldedit.function.pattern.Pattern;
 import com.sk89q.worldedit.math.BlockVector2;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.regions.Polygonal2DRegion;
+import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldedit.world.NullWorld;
 import com.sk89q.worldedit.world.block.*;
 import org.geotools.api.referencing.operation.TransformException;
@@ -122,7 +123,7 @@ public class WorldEditGeometryWriter extends AbstractGeometryWriter {
         LinearRing shell = polygon.getExteriorRing();
         int holes = polygon.getNumInteriorRing();
         int edits = 0;
-        int fill = this.fillGeometry? this.editSession.setBlocks(create2DRegion(shell), pattern) : 0;
+        int fill = this.fillGeometry? this.editSession.setBlocks((Region) create2DRegion(shell), pattern) : 0;
 
         edits += this.writeLine(shell, pattern);
         edits += fill;
@@ -131,7 +132,7 @@ public class WorldEditGeometryWriter extends AbstractGeometryWriter {
             LinearRing hole = polygon.getInteriorRingN(i);
 
             if(fill > 0)
-                edits -= this.editSession.setBlocks(create2DRegion(hole), DEFAULT_AIR_BLOCK);
+                edits -= this.editSession.setBlocks((Region) create2DRegion(hole), DEFAULT_AIR_BLOCK);
 
             edits += this.writeLine(hole, pattern);
         }
